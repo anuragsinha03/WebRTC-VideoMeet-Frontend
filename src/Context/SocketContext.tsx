@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {v4 as UUIDv4} from 'uuid'
 import { peerReducer } from "../Reducers/peerReducers";
 import { addPeerAction } from "../Actions/peerActions";
-const ws_server = "http://localhost:3000";
+const ws_server = "http://localhost:3001";
 
 export const SocketContext = createContext<unknown | null>(null);
 
