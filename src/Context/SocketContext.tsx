@@ -44,7 +44,7 @@ const [peers, dispatch] = useReducer(peerReducer, {}); // peers->state
 	useEffect(()=>{
 		const userId = UUIDv4()
 		const newPeer = new Peer(userId, {
-			host: "https://webrtc-videomeet-peerjs.onrender.com/",
+			host: "webrtc-videomeet-peerjs.onrender.com",
 			// host: "localhost",
 			// port: 9000,
 			// port: 443,
