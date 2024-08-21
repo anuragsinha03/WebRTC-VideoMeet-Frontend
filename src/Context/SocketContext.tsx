@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import {v4 as UUIDv4} from 'uuid'
 import { peerReducer } from "../Reducers/peerReducers";
 import { addPeerAction } from "../Actions/peerActions";
-const ws_server = "http://localhost:3001";
+// const ws_server = "http://localhost:3001"; //local instance
+const ws_server = "https://webrtc-videomeet-backend.onrender.com"
 
 export const SocketContext = createContext<unknown | null>(null);
 
@@ -43,9 +44,39 @@ const [peers, dispatch] = useReducer(peerReducer, {}); // peers->state
 	useEffect(()=>{
 		const userId = UUIDv4()
 		const newPeer = new Peer(userId, {
-			host: "localhost",
-			port: 9000,
-			path: "/myapp"
+			host: "https://webrtc-videomeet-peerjs.onrender.com/",
+			// host: "localhost",
+			// port: 9000,
+			// port: 443,
+			path: "/myapp",
+			secure: true, // uncomment this in local env because locally we have http not https
+			config: {
+				iceServers: [
+      				{
+        				urls: "stun:stun.relay.metered.ca:80",
+      				},
+      				{
+        				urls: "turn:global.relay.metered.ca:80",
+        				username: "2b1c86a68e3c292b8c0eefd0",
+        				credential: "INF6Ptd4rhUJ+GUG",
+      				},
+      				{
+        				urls: "turn:global.relay.metered.ca:80?transport=tcp",
+        				username: "2b1c86a68e3c292b8c0eefd0",
+        				credential: "INF6Ptd4rhUJ+GUG",
+      				},
+      				{
+        				urls: "turn:global.relay.metered.ca:443",
+        				username: "2b1c86a68e3c292b8c0eefd0",
+        				credential: "INF6Ptd4rhUJ+GUG",
+      				},
+      				{
+        				urls: "turns:global.relay.metered.ca:443?transport=tcp",
+        				username: "2b1c86a68e3c292b8c0eefd0",
+        				credential: "INF6Ptd4rhUJ+GUG",
+      				},
+  				],
+			}
 		})
 		setUser(newPeer)
 
